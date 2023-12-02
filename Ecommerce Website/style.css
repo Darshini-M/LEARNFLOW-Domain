@@ -1,0 +1,37 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.hero__section{
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url(./images/coffee-cup-coffee-beans-smoke-4k-wallpaper.png);
+    background-size:cover;
+    background-position: center;
+    color: white;
+    min-height: 100vh;  
+    overflow: hidden; 
+}
+
+.hero__section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    opacity: 0; /* Initially transparent */
+    transition: opacity 0.5s ease; /* Transition property for opacity */
+}
+
+.hero__section:hover::before {
+    opacity: 0.5; /* Change the opacity value on hover */
+}
+.navbar{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    
+}
