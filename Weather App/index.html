@@ -26,7 +26,7 @@
     />
     <link rel="stylesheet" href="style.css" />
       <title>Weather App</title>
-      <script src="script.js"></script>
+      
     </head>
     <body> 
         <div class="weather-app">
@@ -37,8 +37,8 @@
               <div class="city-time">
                 <h1 class="name">Chennai</h1>
                 <small>
-                  <span class="time">17:30</span>
-                  <span class="date">Tuesday Dec 12</span>
+                  <span class="time"></span>
+                  <span class="date"></span>
                 </small>
               </div>
               <div class="weather">
@@ -56,9 +56,12 @@
           <div class="panel">
             <form id="locationInput">
               <input
-                type="text"
-                class="search"
-                placeholder="Search Location..."/>
+                  type="text"
+                  class="search"
+                  id="searchLocation" 
+                  placeholder="Search Location..."
+              />
+              
                 <button type="submit" class="submit">
                   <i class="fas fa-search"></i>
                 </button>
@@ -86,5 +89,6 @@
             </ul>
           </div>
         </div>
+        <script src="script.js"></script>
     </body>
 </html>

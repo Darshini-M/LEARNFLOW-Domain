@@ -13,21 +13,18 @@ const search = document.querySelector('.search');
 const btn = document.querySelector('.submit');
 const cities = document.querySelectorAll('.city');
 
-//Default city when page loads
-let cityInput = "Chennai";
-cities.forEach((city) => {
-    city.addEventListener('click', (e) => {
-        //Change from default city to the cliched one
-        cityInput = e.target.innerHTML;
-        /*Function that fetches and display
-        all the data from the Weather API
-        (We will write it soon) */
-        fetchWeatherData();
-        //Fade out the app (simple animation)
-        app.style.opacity = "0";
-    });
-});
+    //Default city when page loads
+    let cityInput = "Chennai";
 
+    cities.forEach((city) => {
+        city.addEventListener('click', (e) => {
+            //Change from default city to the clicked one
+            cityInput = e.target.innerHTML;
+            fetchWeatherData();
+            //Fade out the app (simple animation)
+            app.style.opacity = "0";
+        });
+    });
 //Add submit event to the form
 form.addEventListener('submit', (e) => {
     /*If the input field (search bar) is empty, throw on alert*/
@@ -58,13 +55,14 @@ function dayOfTheWeek(day, month, year) {
         "Friday",
         "Saturday"
         ];
-        return weekday [new Date(`${day}/${month}/${year}`).getDay()];
+        return weekday[new Date(`${day}/${month}/${year}`).getDay()];
       }; 
+      
 
       /*Function that fetches and displays
         the data from the weather API"*/
         function fetchWeatherData() {
-            fetch(`http://api.weatherapi.com/v1/current.json?key=b82a655733384ef0b3292532231312&q=${cityInput}`)
+            fetch(`https://api.weatherapi.com/v1/current.json?key=b82a655733384ef0b3292532231312&q=${cityInput}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -72,15 +70,16 @@ function dayOfTheWeek(day, month, year) {
                 temp.innerHTML = data.current.temp_c +"&#176;";
                 conditionOutput.innerHTML = data.current.condition.text;
 
-                const date=data.location.localtime;
-                const y =parseInt(date.substr(0, 4));
-                const m =parseInt(date.substr(5, 2));
-                const d= parseInt(date.substr(8, 2));
-                const time= date.substr(11);
+                 const date = new Date(data.location.localtime);
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-                dateOutput.innerHTML = `${dayOfTheWeek(d, m, y)} ${d}, ${m}, ${y}`;
-                timeOutput.innerHTML = time;
+        const formattedDate = date.toLocaleDateString('en-US', options);
+        const formattedTime = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+        const dateTimeString = `${formattedTime} - ${formattedDate}`;
+        timeOutput.innerHTML = dateTimeString;
                 nameOutput.innerHTML = data.location.name;
+                
                 const iconId = data.current.condition.icon.substr(
                     "//cdn.weatherapi.com/weather/64*64/".length);
                     icon.src = "./icons/" + iconId;
@@ -120,6 +119,7 @@ function dayOfTheWeek(day, month, year) {
                         if(timeOfDay == "night"){
                             btn.style.background = "#181e27";
                         }
+                    }
                         else if (
                             code == 1063 ||
                             code == 1069 ||
@@ -150,10 +150,10 @@ function dayOfTheWeek(day, month, year) {
                             app.style.backgroundImage = `url(./images/${timeOfDay}/snowy.jpg)`;
                             btn.style.background ="#4d72aa";
                             if(timeOfDay == "night") {
-                                btn.style.background = "1b1b1b";
+                                btn.style.background = "#1b1b1b";
                             }
                         }
-                    }
+                    
                         app.style.opacity = "1";
                     })
                     .catch(() => {
